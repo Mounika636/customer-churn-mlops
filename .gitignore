@@ -1,0 +1,24 @@
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.*
+
+# MLflow artifacts and metadata
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Trained models
+models/*
+!models/.gitkeep
+
+# Temporary files
+*.log
+.DS_Store
