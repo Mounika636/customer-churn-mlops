@@ -9,7 +9,8 @@ mlartifacts/
 mlflow.db
 notebooks/
 reports/
-data/
+data/*
+!data/Telco-Customer-Churn.csv
 tests/
 models/
 .env

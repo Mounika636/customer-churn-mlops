@@ -1,0 +1,23 @@
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install pinned Python dependencies
+COPY requirements.api.txt .
+
+RUN pip install --no-cache-dir -r requirements.api.txt
+
+# Copy application and training code
+COPY src/ ./src/
+
+# Copy the public training dataset
+COPY data/Telco-Customer-Churn.csv ./data/Telco-Customer-Churn.csv
+
+# Train and save Logistic Regression inside Docker
+RUN python -m src.train_deployment
+
+# Start the prediction API
+EXPOSE 8000
+
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]
