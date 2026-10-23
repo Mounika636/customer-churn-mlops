@@ -5,12 +5,21 @@ from fastapi.testclient import TestClient
 from src.api import app
 
 
+
+from unittest.mock import MagicMock, patch
+
+
 @pytest.fixture
 def client():
-    # Run FastAPI startup and shutdown correctly,
-    # including loading the trained model.
-    with TestClient(app) as test_client:
-        yield test_client
+    mock_model = MagicMock()
+
+    mock_model.predict.return_value = [1]
+    mock_model.predict_proba.return_value = [[0.3882, 0.6118]]
+
+    with patch("src.api.load_model", return_value=mock_model):
+        with TestClient(app) as test_client:
+            yield test_client
+
 
 
 @pytest.fixture
